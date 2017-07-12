@@ -4,8 +4,9 @@ from django.contrib.auth import views as auth_views
 from clock import views
 
 urlpatterns = [
-	url(r'^admin/', admin.site.urls),
 	url(r'^$', views.index, name='index'),
+	url(r'^admin/', admin.site.urls),
 	url(r'^login/$', auth_views.login, name='login'),
-	url(r'^logout/$', auth_views.logout, name='logout'),
+	url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
+	url(r'^profile/(?P<username>[\w.@+-]+)/$', views.profile, name='profile'),
 ]
