@@ -24,3 +24,10 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
 	instance.profile.save()
+
+
+class Project(models.Model):
+	name = models.CharField(max_length=200)
+	start = models.DateTimeField()
+	end = models.DateTimeField()
+	duration = models.DateTimeField()
