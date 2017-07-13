@@ -8,6 +8,10 @@ def index(request):
 	return render(request, 'index.html', {})
 
 
-def profile(request, username):
-	u = User.objects.get(username=username)
-	return render(request, 'profile.html', {'u': u})
+def home(request):
+	return render(request, 'home.html', {})
+
+
+def profiles(request, username):
+	# u = User.objects.get(username=username)
+	return render(request, 'profiles.html')
