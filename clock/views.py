@@ -17,14 +17,18 @@ def home(request):
 
 
 def timer(request):
-	if request.method == 'POST':
-		pass
-
+	if request.user.is_authenticated:
+		if request.method == 'POST':
+			pass
+		else:
+			return render(request, 'timer.html', {})
+	# else:
+		# return render() redirecionar para tela de sign up?
 
 
 def profile(request, username):
 	username = User.objects.get(username=username)
 	if username.is_authenticated:
-		return render(request, 'profiles.html')
+		return render(request, 'profile.html')
 	else:
 		pass
