@@ -45,11 +45,9 @@ def timer(request):
 		return redirect('login')
 
 
-# RESOLVER
 def profile(request, username):
-	user = User.objects.get(username=username)
-	if user.is_authenticated:
-		return render(request, 'profile.html')
+	username = User.objects.get(username=username)
+	if request.user.is_authenticated:
+		return render(request, 'profile.html', {'username': username})
 	else:
-		pass
-	return render(request, 'profile.html')
+		return redirect('login')
