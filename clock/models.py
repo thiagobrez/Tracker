@@ -23,7 +23,7 @@ def update_user_profile(sender, instance, created, **kwargs):
 
 
 class Project(models.Model):
-	name = models.CharField(max_length=200)
+	name = models.CharField(max_length=200, unique=True)
 	start = models.DateTimeField()
 	end = models.DateTimeField()
 	duration = models.DateTimeField()
