@@ -3,9 +3,9 @@ from __future__ import unicode_literals
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from clock.forms import SignUpForm, ProjectForm
 from clock.models import Project
-import datetime
 
 
 def index(request):
@@ -44,34 +44,37 @@ def timer(request):
 		stop = request.POST.get('stop')
 		if request.method == 'POST':
 			form = ProjectForm(request.POST)
-			name = form.cleaned_data['name']
-			project = Project.objects.filter(name=name)
 			if form.is_valid():
-				if start:
+				name = form.cleaned_data['name']
+				project = Project.objects.filter(name=name)
+				if start != None:
 					if project:
-						project.start = datetime.datetime.now()
+						project.start = timezone.now()
+						project.save()
 					else:
 						data = form.save(commit=False)
-						data.start = datetime.datetime.now()
+						data.start = timezone.now()
 						data.save()
 					return render(request, 'timer.html',
 									{'project': project, 'form': form, 'start': start, 'stop': stop})
-				elif stop:
+				elif stop != None:
 					if project:
-						project.end = datetime.datetime.now()
+						project.end = timezone.now()
 						project.duration = project.end - project.start
 						project.save()
 						return render(request, 'timer.html',
 									{'project': project, 'form': form, 'start': start, 'stop': stop})
 					else:
 						data = form.save(commit=False)
-						data.end = datetime.datetime.now()
+						data.end = timezone.now()
 						data.duration = data.end - data.start
 						data.save()
 						new_project = Project.objects.get(name=data.name)
 						return render(request, 'timer.html',
 									{'project': project, 'form': form, 'start': start, 'stop': stop,
 										'new_project': new_project})
+			else:
+				print '====='
 		else:
 			return render(request, 'timer.html', {'form': form, 'start': start, 'stop': stop})
 	else:

@@ -8,9 +8,9 @@
     <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    </form>
     <button name="start" type="submit">START</button>
     <button name="stop" type="submit">STOP</button>
+    </form>
     <span>{{ project.name }}</span>
     <span>{{ form.name }}</span>
 {% endblock %}

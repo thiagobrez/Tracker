@@ -22,7 +22,7 @@ class SignUpForm(UserCreationForm):
 		fields = ('username', 'email', 'password1', 'password2', 'first_name', 'last_name')
 
 
-class ProjectForm(forms.Form):
+class ProjectForm(forms.ModelForm):
 	class Meta:
 		model = Project
-		fields = 'name'
+		fields = ('name',)
