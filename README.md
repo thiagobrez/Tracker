@@ -1,2 +1,2 @@
 # Tracker
-Python/Django app for tracking user productivity based on time spent on projects.
+Track user productivity based on time spent on projects.
